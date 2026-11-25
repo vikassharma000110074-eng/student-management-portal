@@ -1,0 +1,168 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- WELCOME SECTION -->
+
+<div class="welcome-section">
+
+    <div>
+        <h1>Dashboard Overview</h1>
+        <p>Welcome back, Administrator! Here's your portal overview.</p>
+    </div>
+
+    <a href="{{ url_for('students') }}" class="primary-btn">
+
+        <i class="fa-solid fa-user-plus"></i>
+        Manage Students
+
+    </a>
+
+</div>
+
+
+<!-- STATISTICS CARDS -->
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+
+        <div class="stat-icon blue">
+            <i class="fa-solid fa-users"></i>
+        </div>
+
+        <div>
+            <p>Total Students</p>
+            <h2>{{ total_students }}</h2>
+            <small>Registered students</small>
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon purple">
+            <i class="fa-solid fa-book-open"></i>
+        </div>
+
+        <div>
+            <p>Total Courses</p>
+            <h2>{{ total_courses }}</h2>
+            <small>Unique courses</small>
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon green">
+            <i class="fa-solid fa-server"></i>
+        </div>
+
+        <div>
+            <p>System Status</p>
+            <h2 class="healthy">Healthy</h2>
+            <small>Application running</small>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- RECENT STUDENTS -->
+
+<div class="content-card">
+
+    <div class="card-header">
+
+        <div>
+            <h2>Recent Students</h2>
+            <p>Latest registered students</p>
+        </div>
+
+        <a href="{{ url_for('students') }}" class="view-all">
+
+            View All
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </a>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Student Name</th>
+                    <th>Email Address</th>
+                    <th>Course</th>
+                    <th>Status</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for student in recent_students %}
+
+                <tr>
+
+                    <td>#{{ student.id }}</td>
+
+                    <td>
+
+                        <div class="student-name">
+
+                            <div class="table-avatar">
+                                {{ student.name[0]|upper }}
+                            </div>
+
+                            {{ student.name }}
+
+                        </div>
+
+                    </td>
+
+                    <td>{{ student.email }}</td>
+
+                    <td>{{ student.course }}</td>
+
+                    <td>
+                        <span class="badge-success">
+                            Registered
+                        </span>
+                    </td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+
+                    <td colspan="5" class="empty-message">
+                        No students registered yet.
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}
